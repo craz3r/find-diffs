@@ -10,7 +10,7 @@
     "dist"
   ],
   "scripts": {
-    "test": "jest --watch",
+    "test": "jest",
     "babel-node": "babel-node",
     "flow": "flow",
     "flow-typed": "flow-typed",
