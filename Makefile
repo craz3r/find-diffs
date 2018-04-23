@@ -1,7 +1,7 @@
 install: install-deps install-flow-typed
 
 run:
-	npm run babel-node -- 'src/bin/gendiff.js' 10
+	npm run babel-node -- 'src/bin/gendiff.js' -h
 
 install-deps:
 	npm install
@@ -16,5 +16,10 @@ build:
 test:
 	npm test
 
+lint:
+	npm run eslint .
+
 publish:
 	npm publish
+
+.PHONY: test
