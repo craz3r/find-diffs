@@ -1,3 +1,9 @@
 #!/usr/bin/env node
+import * as program from 'commander';
 
-console.log('This is generator of file differences');
+program
+  //.description('Usage: gendiff [options] <firstConfig> <secondConfig>')
+  //.description('Compares two configuration files and shows a difference.')
+  //.version('0.0.1')
+  .option('-f, --format [type]', 'Output format')
+  .parse(process.argv);
