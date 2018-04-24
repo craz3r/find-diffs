@@ -9,8 +9,8 @@ const gendiff = (file1, file2) => {
   const parseFirst = getParser(ext1);
   const parseSecond = getParser(ext2);
 
-  const before = parseFirst(fs.readFileSync(file1));
-  const after = parseSecond(fs.readFileSync(file2));
+  const before = parseFirst(fs.readFileSync(file1, 'utf-8'));
+  const after = parseSecond(fs.readFileSync(file2, 'utf-8'));
 
   const beforeKeys = Object.keys(before);
   const afterKeys = Object.keys(after);
