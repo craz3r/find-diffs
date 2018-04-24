@@ -1,6 +1,6 @@
 {
   "name": "nikita-sigow-gendiff",
-  "version": "0.0.1",
+  "version": "1.1.0",
   "description": "",
   "main": "dist/index.js",
   "bin": {
@@ -17,6 +17,9 @@
     "eslint": "eslint",
     "build": "NODE_ENV=production babel src --out-dir dist --source-maps inline",
     "prepublishOnly": "npm run build"
+  },
+  "jest": {
+    "testEnvironment": "node"
   },
   "repository": {
     "type": "git",
@@ -50,6 +53,8 @@
     "jest-cli": "^22.4.3"
   },
   "dependencies": {
-    "commander": "^2.15.1"
+    "commander": "^2.15.1",
+    "lodash": "^4.17.5",
+    "js-yaml": "^3.11.0"
   }
 }
