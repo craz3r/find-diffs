@@ -14,15 +14,14 @@ const gendiff = (file1, file2) => {
 
   const beforeKeys = Object.keys(before);
   const afterKeys = Object.keys(after);
-  return `{\n${_.union(beforeKeys, afterKeys).reduce((acc, key) => {
+
+  return `{\n${_.union(beforeKeys, afterKeys).map((key) => {
     if (_.has(before, key) && _.has(after, key)) {
-      if (after[key] === before[key]) return [...acc, `   ${key}: ${before[key]}`];
-      return [...acc, ` + ${key}: ${after[key]}\n - ${key}: ${before[key]}`];
-    } else if (_.has(before, key)) {
-      return [...acc, ` - ${key}: ${before[key]}`];
-    }
-    return [...acc, ` + ${key}: ${after[key]}`];
-  }, '').join('\n')}\n}\n`;
+      if (after[key] === before[key]) return `   ${key}: ${before[key]}`;
+      return ` + ${key}: ${after[key]}\n - ${key}: ${before[key]}`;
+    } else if (_.has(before, key)) return ` - ${key}: ${before[key]}`;
+    return ` + ${key}: ${after[key]}`;
+  }).join('\n')}\n}\n`;
 };
 
 export default gendiff;
