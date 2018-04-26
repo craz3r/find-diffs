@@ -2,9 +2,9 @@ import fs from 'fs';
 import path from 'path';
 import getParser from './parsers';
 import generateAst from './ast';
-import render from './render';
+import getRender from './renders';
 
-const gendiff = (file1, file2) => {
+const gendiff = (file1, file2, format) => {
   const ext1 = path.extname(file1);
   const ext2 = path.extname(file2);
 
@@ -18,6 +18,8 @@ const gendiff = (file1, file2) => {
   const parsedAfter = parseSecond(after);
 
   const astTree = generateAst(parsedBefore, parsedAfter);
+
+  const render = getRender(format);
 
   return render(astTree);
 };
