@@ -8,7 +8,7 @@ const stringify = (val, tab) => {
 };
 
 const view = (node, key, tab) => {
-  const { status, value } = node;
+  const { type, value } = node;
   const stringVal = stringify(value, tab);
   const strings = {
     immutable: `  ${key}: ${stringVal}`,
@@ -16,7 +16,7 @@ const view = (node, key, tab) => {
     added: `+ ${key}: ${stringVal}`,
     deleted: `- ${key}: ${stringVal}`,
   };
-  return strings[status];
+  return strings[type];
 };
 
 const render = (ast) => {
@@ -26,7 +26,7 @@ const render = (ast) => {
 
     return keys.map((key) => {
       if (_.has(astTree[key], 'children')) {
-        return `${tab}  ${key}: {\n${iter(astTree[key].value, depth + 1)}\n${tab}  }`;
+        return `${tab}  ${key}: {\n${iter(astTree[key].children, depth + 1)}\n${tab}  }`;
       }
       return `${tab}${view(astTree[key], key, tab)}`;
     }).join('\n');
