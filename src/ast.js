@@ -7,7 +7,7 @@ const generateAst = (before, after) => {
   return _.union(beforeKeys, afterKyes).reduce((acc, key) => {
     if (_.has(before, key) && _.has(after, key)) {
       if (typeof before[key] === 'object' && typeof after[key] === 'object') {
-        return { ...acc, [key]: { children: generateAst(before[key], after[key]) } };
+        return { ...acc, [key]: { type: 'complex', children: generateAst(before[key], after[key]) } };
       }
       if (before[key] === after[key]) return { ...acc, [key]: { type: 'immutable', value: before[key] } };
       return { ...acc, [key]: { type: 'changed', value: { old: before[key], new: after[key] } } };

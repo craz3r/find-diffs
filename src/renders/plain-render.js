@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-const view = (prop, node) => {
+const nodeToString = (prop, node) => {
   const { value, type } = node;
   const joinProp = prop.join('');
 
@@ -20,7 +20,7 @@ const render = (ast) => {
     const keys = Object.keys(astTree);
     return keys.map((key) => {
       if (_.has(astTree[key], 'children')) return iter(astTree[key].children, [...acc, `${key}.`]);
-      return view([...acc, `${key}`], astTree[key]);
+      return nodeToString([...acc, `${key}`], astTree[key]);
     }).join('');
   };
 

@@ -7,31 +7,25 @@ const stringify = (val, tab) => {
   return `${val}`;
 };
 
-const view = (node, key, tab) => {
-  const { type, value } = node;
-  const stringVal = stringify(value, tab);
-  const strings = {
-    immutable: `  ${key}: ${stringVal}`,
-    changed: `+ ${key}: ${stringify(value.new, tab)}\n${tab}- ${key}: ${stringify(value.old, tab)}`,
-    added: `+ ${key}: ${stringVal}`,
-    deleted: `- ${key}: ${stringVal}`,
-  };
-  return strings[type];
-};
-
 const render = (ast) => {
   const iter = (astTree, depth) => {
     const keys = Object.keys(astTree);
-    const tab = '    '.repeat(depth);
+    return _.flatten(keys.map((key) => {
+      const { type, value = '', children = {} } = astTree[key];
+      const tab = '    '.repeat(depth);
+      const stringVal = stringify(value, tab);
 
-    return keys.map((key) => {
-      if (_.has(astTree[key], 'children')) {
-        return `${tab}  ${key}: {\n${iter(astTree[key].children, depth + 1)}\n${tab}  }`;
-      }
-      return `${tab}${view(astTree[key], key, tab)}`;
-    }).join('\n');
+      const strings = {
+        complex: `${tab}  ${key}: {\n${iter(children, depth + 1).join('\n')}\n${tab}  }`,
+        immutable: `${tab}  ${key}: ${stringVal}`,
+        changed: [`${tab}+ ${key}: ${stringify(value.new, tab)}`, `${tab}- ${key}: ${stringify(value.old, tab)}`],
+        added: `${tab}+ ${key}: ${stringVal}`,
+        deleted: `${tab}- ${key}: ${stringVal}`,
+      };
+      return strings[type];
+    }));
   };
-  return `{\n${iter(ast, 1)}\n}\n`;
+  return `{\n${iter(ast, 1).join('\n')}\n}\n`;
 };
 
 export default render;
