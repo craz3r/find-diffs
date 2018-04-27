@@ -1,7 +1,6 @@
 import _ from 'lodash';
 
-const stringify = (val, depth) => {
-  const tab = '    '.repeat(depth);
+const stringify = (val, tab) => {
   if (typeof val === 'object') {
     return `{\n${Object.keys(val).map(key => `${tab}      ${key}: ${val[key]}`)}\n${tab}  }`;
   }
@@ -18,8 +17,8 @@ const render = (ast) => {
 
       const tab = '    '.repeat(depth);
 
-      const stringOldVal = stringify(oldValue, depth);
-      const stringNewVal = stringify(newValue, depth);
+      const stringOldVal = stringify(oldValue, tab);
+      const stringNewVal = stringify(newValue, tab);
 
       const strings = {
         complex: `${tab}  ${key}: {\n${iter(children, depth + 1).join('\n')}\n${tab}  }`,
