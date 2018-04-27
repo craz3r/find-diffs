@@ -1,9 +1,9 @@
-import defaultRender from './renders/default-render';
-import plainRender from './renders/plain-render';
+import diffRender from './diff-render';
+import plainRender from './plain-render';
 
 const renders = {
   plain: plainRender,
-  default: defaultRender,
+  default: diffRender,
 };
 
 export default format => (data) => {

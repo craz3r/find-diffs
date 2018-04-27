@@ -9,10 +9,10 @@ const generateAst = (before, after) => {
       if (typeof before[key] === 'object' && typeof after[key] === 'object') {
         return { ...acc, [key]: { type: 'complex', children: generateAst(before[key], after[key]) } };
       }
-      if (before[key] === after[key]) return { ...acc, [key]: { type: 'immutable', value: before[key] } };
-      return { ...acc, [key]: { type: 'changed', value: { old: before[key], new: after[key] } } };
-    } else if (_.has(before, key)) return { ...acc, [key]: { type: 'deleted', value: before[key] } };
-    return { ...acc, [key]: { type: 'added', value: after[key] } };
+      if (before[key] === after[key]) return { ...acc, [key]: { type: 'unchanged', oldValue: before[key] } };
+      return { ...acc, [key]: { type: 'changed', oldValue: before[key], newValue: after[key] } };
+    } else if (_.has(before, key)) return { ...acc, [key]: { type: 'deleted', oldValue: before[key] } };
+    return { ...acc, [key]: { type: 'added', newValue: after[key] } };
   }, {});
 };
 
