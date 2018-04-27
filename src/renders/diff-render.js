@@ -31,7 +31,7 @@ const render = (ast) => {
       return strings[type];
     }));
   };
-  return `{\n${iter(ast, 1).join('\n')}\n}\n`;
+  return `{\n${iter(ast, 0).join('\n')}\n}\n`;
 };
 
 export default render;

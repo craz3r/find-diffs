@@ -21,6 +21,7 @@ const gendiff = (file1, file2, format) => {
 
   const render = getRender(format);
 
+  console.log(render(astTree));
   return render(astTree);
 };
 
