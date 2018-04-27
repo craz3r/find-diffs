@@ -20,7 +20,7 @@ const gendiff = (file1, file2, format) => {
   const astTree = generateAst(parsedBefore, parsedAfter);
 
   const render = getRender(format);
-  
+
   return render(astTree);
 };
 
