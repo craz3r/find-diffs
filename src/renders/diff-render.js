@@ -1,8 +1,9 @@
 import _ from 'lodash';
 
-const stringify = (val, tab) => {
+const stringify = (val, depth) => {
+  const tab = '    '.repeat(depth);
   if (typeof val === 'object') {
-    return `{\n${Object.keys(val).map(key => `${tab}${tab}    ${key}: ${val[key]}`)}\n${tab}${tab}}`;
+    return `{\n${Object.keys(val).map(key => `${tab}      ${key}: ${val[key]}`)}\n${tab}  }`;
   }
   return `${val}`;
 };
@@ -15,17 +16,17 @@ const render = (ast) => {
         type, oldValue = '', newValue = '', children = {},
       } = astTree[key];
 
-      const tab = '  '.repeat(depth);
+      const tab = '    '.repeat(depth);
 
-      const stringOldVal = stringify(oldValue, tab);
-      const stringNewVal = stringify(newValue, tab);
+      const stringOldVal = stringify(oldValue, depth);
+      const stringNewVal = stringify(newValue, depth);
 
       const strings = {
-        complex: `${tab}  ${key}: {\n${iter(children, depth + 1).join(`${tab}\n`)}\n${tab}${tab}  }`,
-        unchanged: `${tab}    ${key}: ${stringOldVal}`,
-        changed: [`${tab}  + ${key}: ${stringNewVal}`, `${tab}  - ${key}: ${stringOldVal}`],
-        added: `${tab}  + ${key}: ${stringNewVal}`,
-        deleted: `${tab}  - ${key}: ${stringOldVal}`,
+        complex: `${tab}  ${key}: {\n${iter(children, depth + 1).join('\n')}\n${tab}  }`,
+        unchanged: `${tab}  ${key}: ${stringOldVal}`,
+        changed: [`${tab}+ ${key}: ${stringNewVal}`, `${tab}- ${key}: ${stringOldVal}`],
+        added: `${tab}+ ${key}: ${stringNewVal}`,
+        deleted: `${tab}- ${key}: ${stringOldVal}`,
       };
       return strings[type];
     }));
