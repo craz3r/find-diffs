@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 const render = (ast) => {
   const iter = (astTree, acc) => {
     const keys = Object.keys(astTree);
@@ -8,9 +10,9 @@ const render = (ast) => {
 
       const joinProp = [...acc, `${key}`].join('');
 
-      const addedPrefix = typeof newValue === 'object' ? '' : 'value: ';
-      const stringOldVal = typeof oldValue === 'object' ? 'complex value' : oldValue;
-      const stringNewVal = typeof newValue === 'object' ? 'complex value' : newValue;
+      const addedPrefix = _.isObject(newValue) ? '' : 'value: ';
+      const stringOldVal = _.isObject(oldValue) ? 'complex value' : oldValue;
+      const stringNewVal = _.isObject(newValue) ? 'complex value' : newValue;
 
       const strings = {
         complex: iter(children, [...acc, `${key}.`]),

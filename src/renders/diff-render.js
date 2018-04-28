@@ -1,7 +1,7 @@
 import _ from 'lodash';
 
 const stringify = (val, tab) => {
-  if (typeof val === 'object') {
+  if (_.isObject(val)) {
     return `{\n${Object.keys(val).map(key => `${tab}      ${key}: ${val[key]}`)}\n${tab}  }`;
   }
   return `${val}`;

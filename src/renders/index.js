@@ -3,7 +3,8 @@ import plainRender from './plain-render';
 
 const renders = {
   plain: plainRender,
-  default: diffRender,
+  diff: diffRender,
+  json: JSON.stringify,
 };
 
 export default format => (data) => {
